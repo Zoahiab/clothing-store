@@ -27,8 +27,8 @@ function FilterButton({ label, isActive, onClick, big }) {
   );
 }
 
-export default function ShopGrid() {
-  const [category, setCategory] = useState(null);
+export default function ShopGrid({ initialCategory = null }) {
+  const [category, setCategory] = useState(initialCategory);
   const [selected, setSelected] = useState(null);
   const [size, setSize] = useState(null);
   const [error, setError] = useState(false);

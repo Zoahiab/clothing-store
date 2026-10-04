@@ -1,11 +1,19 @@
 import Navbar from "@/components/Navbar";
 import ShopGrid from "@/components/ShopGrid";
 
-export default function ShopPage() {
+const names = { men: "Men", women: "Women", all: "All" };
+
+export default async function ShopPage({ searchParams }) {
+  const params = await searchParams;
+  const initialCategory = names[params?.category] || null;
+
   return (
     <>
       <Navbar />
-      <ShopGrid />
+      <ShopGrid
+        key={initialCategory ?? "none"}
+        initialCategory={initialCategory}
+      />
     </>
   );
 }
