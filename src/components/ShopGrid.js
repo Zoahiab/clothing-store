@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
+import ProductImage from "@/components/ProductImage";
 import { products } from "@/data/products";
 import { useCartStore } from "@/store/cartStore";
 
@@ -84,7 +85,7 @@ export default function ShopGrid() {
 
         {!category && (
           <p className="mt-10 text-center text-neutral-500">
-            Upar se category chunein.
+            Choose a category above.
           </p>
         )}
 
@@ -107,27 +108,25 @@ export default function ShopGrid() {
         )}
       </section>
 
-      {/* Popup: size chunne ke liye */}
+      {/* Popup: choose size */}
       {selected && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
           onClick={closePopup}
         >
           <div
-            className="relative grid w-full max-w-2xl gap-6 rounded-lg bg-white p-6 md:grid-cols-2"
+            className="relative grid max-h-[90vh] w-full max-w-2xl gap-6 overflow-y-auto rounded-lg bg-white p-6 md:grid-cols-2"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closePopup}
-              className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-black text-white hover:bg-neutral-800"
+              className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black text-white hover:bg-neutral-800"
               aria-label="Close"
             >
               X
             </button>
 
-            <div className="flex aspect-[3/4] items-center justify-center rounded-lg bg-neutral-200 text-neutral-500">
-              Photo
-            </div>
+            <ProductImage product={selected} />
 
             <div className="flex flex-col justify-center">
               <p className="text-sm uppercase tracking-widest text-amber-600">
@@ -141,7 +140,7 @@ export default function ShopGrid() {
               </p>
 
               <h3 className="mt-6 text-sm font-semibold uppercase tracking-widest text-neutral-500">
-                Size chunein
+                Select Size
               </h3>
               <div className="mt-3 flex flex-wrap gap-3">
                 {sizes.map((s) => (
@@ -159,7 +158,7 @@ export default function ShopGrid() {
 
               {error && (
                 <p className="mt-3 text-sm text-red-600">
-                  Pehle size select karein.
+                  Please select a size first.
                 </p>
               )}
 
@@ -167,11 +166,11 @@ export default function ShopGrid() {
                 onClick={handleAdd}
                 className="mt-6 w-full rounded-full bg-amber-500 px-8 py-3 font-semibold text-black transition hover:bg-amber-400"
               >
-                {added ? "Cart me add ho gaya" : "Add to Cart"}
+                {added ? "Added to Cart" : "Add to Cart"}
               </button>
 
               <p className="mt-4 text-xs text-neutral-500">
-                Cash on Delivery poore Pakistan me.
+                Cash on Delivery all over Pakistan.
               </p>
             </div>
           </div>
