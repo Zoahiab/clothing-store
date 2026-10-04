@@ -4,7 +4,7 @@ import { products } from "@/data/products";
 export default function FeaturedProducts() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16">
-      <h2 className="mb-8 text-center text-3xl font-bold text-black">
+      <h2 className="mb-8 text-center text-3xl font-bold text-foreground">
         Featured Products
       </h2>
       <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
