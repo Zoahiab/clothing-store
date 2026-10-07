@@ -1,48 +1,54 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Hero() {
-  return (
-    <section className="bg-black text-white">
-      <div className="mx-auto grid max-w-6xl md:grid-cols-2">
-        {/* Text */}
-        <div className="flex flex-col justify-center px-4 py-16 md:px-8 md:py-24">
-          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-amber-500">
-            New Collection
-          </p>
-          <h1 className="text-4xl font-light leading-tight md:text-6xl">
-            Style that defines you.
-          </h1>
-          <p className="mt-6 max-w-md text-neutral-300">
-            Premium quality clothing, great fit and fair prices.
-            Cash on Delivery all over Pakistan.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              href="/shop?category=men"
-              className="bg-amber-500 px-8 py-3 text-sm font-semibold uppercase tracking-widest text-black transition hover:bg-amber-400"
-            >
-              Shop Men
-            </Link>
-            <Link
-              href="/shop?category=women"
-              className="border border-white px-8 py-3 text-sm font-semibold uppercase tracking-widest text-white transition hover:bg-white hover:text-black"
-            >
-              Shop Women
-            </Link>
-          </div>
-        </div>
+const base =
+  "px-5 py-2.5 text-xs font-semibold uppercase tracking-widest border border-amber-700 transition";
+const filled = "bg-amber-700 text-white hover:bg-amber-600";
+const outline = "text-amber-700 hover:bg-amber-700 hover:text-white";
 
-        {/* Picture */}
-        <div className="relative min-h-[420px] bg-neutral-800 md:min-h-[600px]">
-          <Image
-            src="/images/shalwar-kameez.jpg"
-            alt="House Wear collection"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
-          />
+export default function Hero({ active = null }) {
+  return (
+    <section className="bg-[#f7f2ea]">
+      <div className="relative mx-auto max-w-7xl">
+        <Image
+          src="/images/hero.jpeg"
+          alt="Wear House men and women collection"
+          width={1536}
+          height={522}
+          priority
+          quality={90}
+          sizes="100vw"
+          className="h-auto w-full"
+        />
+
+        <div className="flex flex-col items-center justify-center px-4 py-10 text-center text-amber-700 md:absolute md:inset-0 md:py-0">
+          <div className="md:max-w-[34%]">
+            <p className="flex items-center justify-center gap-3 text-[10px] font-medium uppercase tracking-[0.3em] lg:text-xs">
+              <span className="hidden h-px w-6 bg-amber-700 md:block" />
+              Men &amp; Women Fashion
+              <span className="hidden h-px w-6 bg-amber-700 md:block" />
+            </p>
+            <h1 className="mt-3 font-serif text-4xl font-bold tracking-wide md:text-3xl lg:text-5xl">
+              WEAR HOUSE
+            </h1>
+            <p className="mt-2 text-sm font-medium uppercase tracking-[0.3em] lg:text-base">
+              Style for everyone.
+            </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-3 lg:mt-7">
+              <Link
+                href="/shop?category=men#products"
+                className={`${base} ${active === "Men" ? filled : outline}`}
+              >
+                Shop Men
+              </Link>
+              <Link
+                href="/shop?category=women#products"
+                className={`${base} ${active === "Women" ? filled : outline}`}
+              >
+                Shop Women
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>

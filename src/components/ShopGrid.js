@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
 import ProductImage from "@/components/ProductImage";
@@ -8,7 +8,7 @@ import { products } from "@/data/products";
 import { useCartStore } from "@/store/cartStore";
 
 const categories = ["All", "Men", "Women"];
-const sizes = ["S", "M", "L", "XL"];
+const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
 function FilterButton({ label, isActive, onClick, big }) {
   return (
@@ -34,6 +34,19 @@ export default function ShopGrid({ initialCategory = null }) {
   const [error, setError] = useState(false);
   const [added, setAdded] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
+  const productsRef = useRef(null);
+
+  useEffect(() => {
+    if (initialCategory && productsRef.current) {
+      const t = setTimeout(() => {
+        productsRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 150);
+      return () => clearTimeout(t);
+    }
+  }, [initialCategory]);
 
   const filtered = category
     ? category === "All"
@@ -67,10 +80,13 @@ export default function ShopGrid({ initialCategory = null }) {
 
   return (
     <>
-      <Hero />
+      <Hero active={category} />
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        {/* All, Men, Women */}
+      <section
+        id="products"
+        ref={productsRef}
+        className="mx-auto max-w-6xl scroll-mt-24 px-4 py-12"
+      >
         <div className="flex flex-wrap justify-center gap-4">
           {categories.map((cat) => (
             <FilterButton
@@ -108,7 +124,6 @@ export default function ShopGrid({ initialCategory = null }) {
         )}
       </section>
 
-      {/* Popup: choose size */}
       {selected && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"

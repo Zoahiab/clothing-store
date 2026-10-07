@@ -6,6 +6,7 @@ import ProductImage from "@/components/ProductImage";
 import { products } from "@/data/products";
 import { useCartStore } from "@/store/cartStore";
 import { useHydrated } from "@/lib/useHydrated";
+import { FREE_DELIVERY_MIN, getDelivery } from "@/lib/delivery";
 
 export default function CartPage() {
   const hydrated = useHydrated();
@@ -14,7 +15,10 @@ export default function CartPage() {
   const decrease = useCartStore((state) => state.decrease);
   const removeItem = useCartStore((state) => state.removeItem);
 
-  const total = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const delivery = getDelivery(subtotal);
+  const total = subtotal + delivery;
+  const remaining = FREE_DELIVERY_MIN - subtotal;
 
   if (!hydrated) {
     return (
@@ -102,8 +106,20 @@ export default function CartPage() {
               })}
             </div>
 
-            <div className="mt-8 flex flex-col items-end gap-4">
-              <p className="text-xl text-black">
+            <div className="mt-8 flex flex-col items-end gap-2">
+              <p className="text-sm text-black">
+                Subtotal: Rs. {subtotal.toLocaleString()}
+              </p>
+              <p className="text-sm text-black">
+                Delivery:{" "}
+                {delivery === 0 ? "Free" : `Rs. ${delivery.toLocaleString()}`}
+              </p>
+              {delivery > 0 && (
+                <p className="text-xs text-amber-700">
+                  Add Rs. {remaining.toLocaleString()} more for free delivery.
+                </p>
+              )}
+              <p className="mt-2 text-xl text-black">
                 Total:{" "}
                 <span className="font-bold">Rs. {total.toLocaleString()}</span>
               </p>
@@ -112,7 +128,7 @@ export default function CartPage() {
               </p>
               <Link
                 href="/checkout"
-                className="rounded-full bg-amber-500 px-10 py-3 font-semibold text-black transition hover:bg-amber-400"
+                className="mt-2 rounded-full bg-amber-500 px-10 py-3 font-semibold text-black transition hover:bg-amber-400"
               >
                 Checkout
               </Link>

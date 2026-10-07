@@ -10,7 +10,7 @@ export default function ContactPage() {
           Have a question about an order or a product? Reach us here.
         </p>
         <ul className="mt-6 space-y-2 text-foreground">
-          <li>Email: hello@housewear.pk</li>
+          <li>Email: hello@wearhouse.pk</li>
           <li>Phone: +92 300 0000000</li>
           <li>Delivery: Cash on Delivery all over Pakistan</li>
         </ul>

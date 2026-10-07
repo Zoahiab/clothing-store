@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f2ea;
+  --foreground: #7a5230;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -12,11 +13,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Tasveer jaisa tan/caramel rang */
+@theme {
+  --color-amber-400: #c79a68;
+  --color-amber-500: #b88a5a;
+  --color-amber-600: #96693d;
+  --color-amber-700: #7a5230;
 }
 
 body {
@@ -25,9 +27,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Cart aur Checkout ka text: dark mode me safed, light mode me kaala */
+/* Cart, Checkout, Shop aur popup ka text: bhoora */
 main .text-black:not([class*="bg-"]),
 main .text-white:not([class*="bg-"]),
-main .text-neutral-300:not([class*="bg-"]) {
+main .text-neutral-300:not([class*="bg-"]),
+main .text-neutral-500:not([class*="bg-"]),
+main .text-neutral-600:not([class*="bg-"]),
+section .text-neutral-500,
+.max-w-2xl .text-black,
+.max-w-2xl .text-neutral-500 {
   color: var(--foreground) !important;
 }

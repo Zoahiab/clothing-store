@@ -6,14 +6,19 @@ import Navbar from "@/components/Navbar";
 import CheckoutForm from "@/components/CheckoutForm";
 import OrderSummary from "@/components/OrderSummary";
 import { useCartStore } from "@/store/cartStore";
+import { useHydrated } from "@/lib/useHydrated";
+import { getDelivery } from "@/lib/delivery";
 import { supabase } from "@/lib/supabase";
 
 export default function CheckoutPage() {
+  const hydrated = useHydrated();
   const items = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
   const [orderNumber, setOrderNumber] = useState(null);
 
-  const total = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const delivery = getDelivery(subtotal);
+  const total = subtotal + delivery;
 
   async function handlePlaced(customer) {
     const number = Math.floor(100000 + Math.random() * 900000);
@@ -36,6 +41,15 @@ export default function CheckoutPage() {
     setOrderNumber(number);
     clearCart();
     return null;
+  }
+
+  if (!hydrated) {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen" />
+      </>
+    );
   }
 
   return (
@@ -79,7 +93,12 @@ export default function CheckoutPage() {
             <h1 className="mb-8 text-3xl font-bold text-black">Checkout</h1>
             <div className="grid gap-10 md:grid-cols-2">
               <CheckoutForm onPlaced={handlePlaced} />
-              <OrderSummary items={items} total={total} />
+              <OrderSummary
+                items={items}
+                subtotal={subtotal}
+                delivery={delivery}
+                total={total}
+              />
             </div>
           </>
         )}

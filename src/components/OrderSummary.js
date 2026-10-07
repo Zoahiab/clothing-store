@@ -1,9 +1,10 @@
-export default function OrderSummary({ items, total }) {
+export default function OrderSummary({ items, subtotal, delivery, total }) {
   return (
     <div className="h-fit rounded-lg border border-neutral-200 p-6">
       <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-neutral-500">
         Order Summary
       </h2>
+
       <div className="divide-y divide-neutral-200">
         {items.map((item) => (
           <div
@@ -22,11 +23,24 @@ export default function OrderSummary({ items, total }) {
           </div>
         ))}
       </div>
-      <div className="mt-4 flex justify-between border-t border-neutral-200 pt-4 text-lg">
-        <span className="text-black">Total</span>
-        <span className="font-bold text-black">
-          Rs. {total.toLocaleString()}
-        </span>
+
+      <div className="mt-4 space-y-2 border-t border-neutral-200 pt-4 text-sm">
+        <div className="flex justify-between">
+          <span className="text-black">Subtotal</span>
+          <span className="text-black">Rs. {subtotal.toLocaleString()}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-black">Delivery</span>
+          <span className="text-black">
+            {delivery === 0 ? "Free" : `Rs. ${delivery.toLocaleString()}`}
+          </span>
+        </div>
+        <div className="flex justify-between border-t border-neutral-200 pt-3 text-lg">
+          <span className="text-black">Total</span>
+          <span className="font-bold text-black">
+            Rs. {total.toLocaleString()}
+          </span>
+        </div>
       </div>
     </div>
   );

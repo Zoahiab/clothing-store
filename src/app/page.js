@@ -1,11 +1,19 @@
 import Navbar from "@/components/Navbar";
-import ShopGrid from "@/components/ShopGrid";
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
+import Categories from "@/components/Categories";
+import LatestCollection from "@/components/LatestCollection";
+import SaleBanner from "@/components/SaleBanner";
 
-export default function ShopPage() {
+export default function Home() {
   return (
     <>
       <Navbar />
-      <ShopGrid />
+      <Hero />
+      <Features />
+      <Categories />
+      <LatestCollection />
+      <SaleBanner />
     </>
   );
 }
