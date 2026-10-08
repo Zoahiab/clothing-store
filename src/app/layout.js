@@ -13,7 +13,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="overflow-x-hidden">
         <div className="bg-[#e9dfcf] px-4 py-2 text-xs font-medium text-amber-700">
           <div className="mx-auto flex max-w-6xl items-center justify-center gap-6 md:justify-between">
             <span>Free Delivery on Orders Rs. 5,000 &amp; Above</span>
