@@ -12,6 +12,11 @@ export default function ProductPopup({ product, onClose }) {
   const [added, setAdded] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
 
+  const hasSale = product.oldPrice && product.oldPrice > product.price;
+  const off = hasSale
+    ? Math.round((1 - product.price / product.oldPrice) * 100)
+    : 0;
+
   function handleAdd() {
     if (!size) {
       setError(true);
@@ -46,8 +51,19 @@ export default function ProductPopup({ product, onClose }) {
             {product.category} / {product.type}
           </p>
           <h2 className="mt-2 text-2xl font-bold text-black">{product.name}</h2>
-          <p className="mt-2 text-xl text-black">
+
+          <p className="mt-2 flex flex-wrap items-center gap-2 text-xl text-black">
             Rs. {product.price.toLocaleString()}
+            {hasSale && (
+              <>
+                <span className="text-sm text-neutral-400 line-through">
+                  Rs. {product.oldPrice.toLocaleString()}
+                </span>
+                <span className="rounded bg-amber-700 px-2 py-0.5 text-xs font-semibold text-white">
+                  -{off}%
+                </span>
+              </>
+            )}
           </p>
 
           <h3 className="mt-6 text-sm font-semibold uppercase tracking-widest text-neutral-500">
